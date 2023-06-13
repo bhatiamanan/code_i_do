@@ -10,14 +10,23 @@ class Solution{
 public:	
 	vector<int> kLargest(int arr[], int n, int k) {
 	    // code here
-	    sort(arr,arr+n);
+	    vector<int> ans;
+	    priority_queue <int, vector<int>, greater<int>> q;
 	    
-	    vector <int> ans;
-	    int a =1;
-	    for(int i=n-1;i>=0 && a<=k;i--){
-	        ans.push_back(arr[i]);
-	        a++;
+	    for(int i =0;i<k;i++){
+	        q.push(arr[i]);
 	    }
+	    for(int i=k;i<n;i++){
+	        if(q.top()<arr[i]){
+	            q.pop();
+	            q.push(arr[i]);
+	        }
+	    }
+	    while(!q.empty()){
+	        ans.push_back(q.top());
+	        q.pop();
+	    }
+	    reverse(ans.begin(),ans.end());
 	    return ans;
 	}
 

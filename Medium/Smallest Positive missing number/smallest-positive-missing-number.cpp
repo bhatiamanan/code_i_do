@@ -12,12 +12,14 @@ class Solution
     int missingNumber(int arr[], int n) 
     { 
         // Your code here
-        sort(arr,arr+n);
-        int nya=1;
+        unordered_map<int, int>mp;
         for(int i=0;i<n;i++){
-            if(arr[i]==nya) nya++;
+            mp[arr[i]]++;
         }
-        return nya;
+        for(int i=1;i<=n;i++){
+            if(mp[i]==0) return i;
+        }
+        return n+1;
     } 
 };
 

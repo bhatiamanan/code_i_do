@@ -28,9 +28,6 @@ class Solution {
 		            S.push_back('#');
 		        }
 		    }
-		    
-		    
-		    
 		    return S;
 		}
 

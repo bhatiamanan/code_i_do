@@ -5,31 +5,29 @@ using namespace std;
 
 // } Driver Code Ends
 // User function Template for C++
+// #include <bits/stdc++.h>
 class Solution {
   public:
-    long long int nthFibonacci(long long int n){
+  
+    int fib(int n,vector<long> &dp){
+        if(n<=1) return n;
+        
+        if(dp[n]!= -1) return dp[n]%1000000007;
+        dp[n] = fib(n-1, dp) + fib(n-2, dp);
+        return dp[n]%1000000007;
+    }
+    int nthFibonacci(int n){
         // code here
-       long long int a=1;
-       long long int b=1;
-       long long int c=1;
-       long long int count =2;
-       if(n==1 || n==2){
-           return 1;
-       }
-       if(n==3){
-           return 2;
-       }
-       
-       
-       while(count<n){
-           a=b;
-           b=c;
-           c=(a+b)%1000000007;
-           count++;
-       }
-       return c ;
+        vector<long> dp;
+        for(int i=0;i<=n;i++){
+            dp.push_back(-1);
+        }
+        
+        int a = fib(n,dp);
+        return a%1000000007;
         
     }
+    
 };
 
 //{ Driver Code Starts.
@@ -37,7 +35,7 @@ int main() {
     int t;
     cin >> t;
     while (t--) {
-        long long int n;
+        int n;
         cin >> n;
         Solution ob;
         cout << ob.nthFibonacci(n) << endl;

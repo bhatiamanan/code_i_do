@@ -5,27 +5,19 @@ using namespace std;
 
 // } Driver Code Ends
 // User function Template for C++
-// #include <bits/stdc++.h>
 class Solution {
   public:
-  
-    int fib(int n,vector<long> &dp){
-        if(n<=1) return n;
-        
-        if(dp[n]!= -1) return dp[n]%1000000007;
-        dp[n] = fib(n-1, dp) + fib(n-2, dp);
-        return dp[n]%1000000007;
-    }
     int nthFibonacci(int n){
         // code here
-        vector<long> dp;
-        for(int i=0;i<=n;i++){
-            dp.push_back(-1);
+        int prev1 = 0;
+        int prev2 = 1;
+        if(n==0) return prev1;
+        for(int i=0;i<n;i++){
+            int curr = (prev1+prev2)%1000000007;
+            prev1 = prev2;
+            prev2 = curr;
         }
-        
-        int a = fib(n,dp);
-        return a%1000000007;
-        
+        return prev1;
     }
     
 };

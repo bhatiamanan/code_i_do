@@ -48,24 +48,20 @@ class Solution
       vector<int> v;
       queue<Node*> q;
       q.push(node);
-      q.push(NULL);
       
       while(!q.empty()){
           Node* temp = q.front();
+          v.push_back(temp->data);
           q.pop();
-          if(temp==NULL){
-              if(!q.empty()){
-                  q.push(NULL);
-              }
-          }else{
-              v.push_back(temp->data);
-              if(temp->left) q.push(temp->left);
-              if(temp->right) q.push(temp->right);
-          }
+          
+          if(temp->left) q.push(temp->left);
+          if(temp->right) q.push(temp->right);
+          
       }
       return v;
     }
 };
+
 
 //{ Driver Code Starts.
 

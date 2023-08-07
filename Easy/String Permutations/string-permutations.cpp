@@ -6,32 +6,26 @@ using namespace std;
 class Solution{
     public:
     //Complete this function
-    void solve(string S, vector<bool>&vis, 
-    string temp, vector <string> &ans){
-        if (temp.length()==S.length()){
-            ans.push_back(temp);
+    
+    void helper(string S, vector<string> &ans, int index){
+        if(index >= S.size()) {
+            ans.push_back(S);
             return;
         }
-        
-        for (int i=0; i<S.length(); i++){
-            if (!vis[i]){
-                vis[i] = 1;
-                temp += S[i];
-                solve(S, vis, temp, ans);
-                
-                temp = temp.substr(0, temp.length()-1);
-                vis[i] = 0;
-            }
+        for(int i=index; i<S.size();i++){
+            swap(S[index], S[i]);
+            helper(S,ans,index+1);
+            swap(S[index], S[i]);
         }
     }
+    
     vector<string> permutation(string S)
     {
-        vector <string> ans;
-        int n = S.length();
-        vector <bool> vis(n,0);
-        string temp = "";
-        solve(S,vis,temp,ans);
-        sort (ans.begin(), ans.end());
+        //Your code here
+        vector<string> ans;
+        int index = 0;
+        helper(S,ans,index);
+        sort(ans.begin(), ans.end());
         return ans;
     }
 };

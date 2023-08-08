@@ -10,25 +10,17 @@ class Solution
     public:
     int countFractions(int n, int numerator[], int denominator[])
     {
-        int count = 0;
-        map<pair<int, int>, int> mp;
-        
+        map<pair<int,int>,int> mp;
+        int ans=0;
         for(int i=0;i<n;i++){
-            int gcd = __gcd(numerator[i], denominator[i]);
-            numerator[i] /= gcd;
-            denominator[i] /= gcd;
-            
-            int num = numerator[i];
-            int den = denominator[i];
-            
-            int toFind = den-num;
-            if(mp.find({toFind, den})!= mp.end()){
-                count+=mp[{toFind, den}];
-            }
-            mp[{num, den}]++;
-            
+            int d = __gcd(numerator[i],denominator[i]);
+            int a=numerator[i]/d;
+            int b=denominator[i]/d;
+            int diff=b-a;
+            if(mp.find({diff,b})!=mp.end()) ans+=mp[{diff,b}];
+            mp[{a,b}]++;
         }
-        return count;
+        return ans;
     }
 };
 

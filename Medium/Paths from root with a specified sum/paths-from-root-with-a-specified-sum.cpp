@@ -98,20 +98,16 @@ class Solution
 {
     public:
     
-    void helper(vector<vector<int>>& ans, vector<int>& path, Node *root, int targetSum){
+    void helper(vector<vector<int>>& ans, vector<int>& path, Node *root, int targetSum, int sum){
         if(root==NULL) return;
         path.push_back(root->key);
-        int sum = 0;
-        
-        for(int i=0;i<path.size();i++){
-            sum+=path[i];
-        }
+        sum+=root->key;
         if(sum==targetSum){
             ans.push_back(path);
         }
         
-        helper(ans, path, root->left, targetSum);
-        helper(ans, path, root->right, targetSum);
+        helper(ans, path, root->left, targetSum,sum);
+        helper(ans, path, root->right, targetSum,sum);
         path.pop_back();
     }
     
@@ -120,7 +116,8 @@ class Solution
         //code here
         vector<vector<int>> ans;
         vector<int> path;
-        helper(ans, path, root, targetSum);
+        int sum = 0;
+        helper(ans, path, root, targetSum,sum);
         return ans;
         
     }

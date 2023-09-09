@@ -111,12 +111,19 @@ class Solution{
   public:
     // The given root is the root of the Binary Tree
     // Return the root of the generated BST
-    void preOrder(vector<int>& v, Node *root){
+    void inOrder(vector<int>& v, Node *root){
         if(root==NULL) return;
         
-        preOrder(v,root->left);
+        inOrder(v,root->left);
         v.push_back(root->data);
-        preOrder(v,root->right);
+        inOrder(v,root->right);
+    }
+    void makeTree(vector<int>& v, Node *root, int& index){
+        if(root==NULL) return;
+        
+        makeTree(v,root->left, index);
+        root->data = v[index++];
+        makeTree(v,root->right, index);
     }
     
     
@@ -124,12 +131,11 @@ class Solution{
     {
         //Your code goes here
         vector<int> v;
-        preOrder(v,root);
+        inOrder(v,root);
         sort(v.begin(),v.end());
-        for(int i=0;i<v.size();i++){
-            cout<<v[i]<<" ";
-        }
-        return NULL;
+        int index = 0;
+        makeTree(v, root, index);
+        return root;
     }
 };
 

@@ -13,13 +13,11 @@ class Solution{
     // Function to check if given number n is a power of two.
     bool isPowerofTwo(long long n){
         
-        // Your code here 
-        double ni = n;
-        if(n==1) return true;
-        if(n & 1) return false;
-        while(ni>2) ni/=2;
-        if(ni==2) return true;
-        return false;
+        // Your code here    
+        if(n==0) return false;
+        if((n&(n-1))==0) return true;
+        return false; 
+        
     }
 };
 

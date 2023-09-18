@@ -117,38 +117,29 @@ struct Node
 class Solution
 {
 public:
-    
-    void solve(Node *root, int sum, int &maxSum, int len, int &maxLen){
+
+    void solve(Node *root, pair<int, int>& order, pair<int, int>& ans){
         
-        if(root==NULL){
-            if(maxLen<len){
-                maxLen = len;
-                maxSum = sum;
-            }else if(maxLen==len){
-                maxSum = max(sum,maxSum);
-            }
-            return;
-            
+        if(root==NULL) return ;
+        order.first+=root->data;
+        order.second++;
+        if(root->left==NULL && root->right==NULL){
+            if(ans.second<order.second) ans = order;
+            else if(ans.second==order.second) ans.first = max(ans.first, order.first);
         }
-        sum+=root->data;
-        len++;
-        
-        solve(root->left,sum,maxSum,len,maxLen);
-        solve(root->right,sum,maxSum,len,maxLen);
+        solve(root->left, order, ans);
+        solve(root->right, order, ans);
+        order.first-=root->data;
+        order.second--;
     }
     
     int sumOfLongRootToLeafPath(Node *root)
     {
         //code here
-        int sum=0;
-        int len=0;
-        int maxSum=0;
-        int maxLen=0;
-        
-        solve(root,sum,maxSum,len,maxLen);
-        
-        return maxSum;
-        
+        pair<int, int> order(0,0);
+        pair<int, int> ans(0,0);
+        solve(root,order,ans);
+        return ans.first;
     }
 };
 

@@ -111,29 +111,37 @@ struct Node
 };
 */
 // your task is to complete this function
-
-void search(Node *root, int k, int node, vector<int>& v, int& ans){
-    if(root==NULL) return;
-    v.push_back(root->data);
-    if(root->data==node){
-        // cout<<k<<" "<<v.size()<<endl;
-        if(k<v.size()){
-             ans = v[v.size()-k-1];   
+Node* solve(Node *root, int& k, int node){
+    
+    if (root==NULL) return NULL;
+    
+    if(root->data==node) return root;
+    
+    Node* left = solve(root->left, k, node);
+    Node* right = solve(root->right, k, node);
+    if(left!=NULL && right==NULL) {
+        k--;
+        if(k<=0){
+            k = INT_MAX;   //locking the answer so that when all recusive call are done,
+                           // we won't lost our correct answer 
+            return root;
         }
-        return;
+        return left;
+    }else if(left==NULL && right!=NULL){
+        k--;
+        if(k<=0){
+            k = INT_MAX;   //locking the answer so that when all recusive call are done,
+                           // we won't lost our correct answer
+            return root;
+        }
+        return right;
     }
-    search(root->left, k, node, v, ans);
-    search(root->right, k, node, v, ans);
-    v.pop_back();
+    return NULL;
 }
-
 int kthAncestor(Node *root, int k, int node)
 {
     // Code here
-    vector<int> v;
-    
-    int ans = -1;
-    search(root, k, node, v, ans);
-    return ans;
-    
+    Node* ans = solve(root, k, node);
+    if(ans==NULL || ans->data==node) return -1;
+    else return ans->data;
 }

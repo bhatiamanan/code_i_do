@@ -99,8 +99,8 @@ struct Node
 */
 class Solution{
   public:
-    int count = 0;
-    void preorder(Node *root, int k, unordered_map<int,int>&mp,int prev)
+    
+    void preorder(Node *root, int k, unordered_map<int,int>&mp,int prev, int& count)
     {
         if(root)
         {
@@ -115,8 +115,8 @@ class Solution{
       
              mp[curr]++;
             
-            preorder(root->left,k,mp,curr);
-            preorder(root->right,k,mp,curr);
+            preorder(root->left,k,mp,curr, count);
+            preorder(root->right,k,mp,curr, count);
             
               mp[curr]--;
         }
@@ -124,11 +124,13 @@ class Solution{
     int sumK(Node *root,int k)
     {
         unordered_map<int,int>mp;
-        preorder(root,k,mp,0);
+        int count =0;
+        preorder(root,k,mp,0, count);
         return count ;
         
     }
 };
+
 
 
 //{ Driver Code Starts.

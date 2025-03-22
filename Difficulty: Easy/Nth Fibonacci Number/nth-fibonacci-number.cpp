@@ -10,18 +10,15 @@ using namespace std;
 class Solution {
   public:
     
-    int dpSol(int n, vector<int>& dp){
-        if(n<2) return n;
-        
-        if(dp[n] != -1) return dp[n];
-        
-        dp[n] = dpSol(n-1, dp)+dpSol(n-2, dp);
-        return dp[n];
-    }
     int nthFibonacci(int n) {
         // code here
-        vector<int> dp(n+1, -1);
-        return dpSol(n, dp);
+        vector<int> dp(n+1);
+        dp[0]=0;
+        dp[1]=1;
+        for(int i=2;i<=n;i++){
+            dp[i] = dp[i-1]+dp[i-2];
+        }
+        return dp[n];
     }
 };
 
